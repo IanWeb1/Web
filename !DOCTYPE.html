@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ian | Plataforma Futurista</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6C63FF',
+                        secondary: '#4F46E5',
+                        dark: '#1E1E2C',
+                        light: '#F8F9FA',
+                        accent: '#00D1B2'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['Fira Code', 'monospace']
+                    },
+                    boxShadow: {
+                        'neo': '8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff',
+                        'neo-inset': 'inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff',
+                        'neo-sm': '4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #F0F2F5;
+            color: #1E1E2C;
+            transition: all 0.3s ease;
+        }
+        
+        .neo-card {
+            background: #F0F2F5;
+            border-radius: 20px;
+            box-shadow: 8px 8px 16px #d1d9e6, -8px -8px 16px #ffffff;
+            transition: all 0.3s ease;
+        }
+        
+        .neo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 12px 12px 24px #d1d9e6, -12px -12px 24px #ffffff;
+        }
+        
+        .neo-btn {
+            background: #F0F2F5;
+            border-radius: 12px;
+            box-shadow: 4px 4px 8px #d1d9e6, -4px -4px 8px #ffffff;
+            transition: all 0.2s ease;
+        }
+        
+        .neo-btn:active {
+            box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+        }
+        
+        .neo-input {
+            background: #F0F2F5;
+            border-radius: 12px;
+            box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .neo-input:focus {
+            outline: none;
+            box-shadow: inset 6px 6px 12px #d1d9e6, inset -6px -6px 12px #ffffff;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #6C63FF 0%, #00D1B2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .glow {
+            animation: glow 2s infinite alternate;
+        }
+        
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 5px rgba(108, 99, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(108, 99, 255, 0.8);
+            }
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+        }
+        
+        .video-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(108, 99, 255, 0.3) 0%, rgba(0, 209, 178, 0.3) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .video-thumbnail:hover::before {
+            opacity: 1;
+        }
+        
+        .pagination-btn {
+            transition: all 0.3s ease;
+        }
+        
+        .pagination-btn.active {
+            background: linear-gradient(135deg, #6C63FF 0%, #00D1B2 100%);
+            color: white;
+            box-shadow: none;
+        }
+        
+        /* Animaciones */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .slide-in-left {
+            animation: slideInLeft 0.5s ease-out;
+        }
+        
+        @keyframes slideInLeft {
+            from { transform: translateX(-50px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Navbar -->
+    <nav class="bg-white bg-opacity-80 backdrop-filter backdrop-blur-lg shadow-sm fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold gradient-text">IAN</span>
+                </div>
+                
+                <!-- Menú desktop -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-primary bg-primary bg-opacity-10">Inicio</a>
+                        <a href="#videos" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-primary transition">Videos</a>
+                        <a href="#trending" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-primary transition">Trending</a>
+                        <a href="#about" class="px-3 py-2 rounded-md text-sm font-medium text-gray-600 hover:text-primary transition">Sobre Ian</a>
+                    </div>
+                </div>
+                
+                <!-- Botones de usuario -->
+                <div class="hidden md:block">
+                    <div class="ml-4 flex items-center md:ml-6 space-x-3">
+                        <button id="search-btn" class="neo-btn p-2 rounded-full text-gray-600 hover:text-primary">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button id="login-btn" class="neo-btn px-4 py-2 rounded-lg text-sm font-medium text-primary">Iniciar sesión</button>
+                        <button id="register-btn" class="px-4 py-2 rounded-lg text-sm font-medium text-white bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition">Registrarse</button>
+                    </div>
+                </div>
+                
+                <!-- Menú móvil -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="neo-btn p-2 rounded-full text-gray-600">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menú móvil desplegable -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg rounded-b-lg">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-primary bg-primary bg-opacity-10">Inicio</a>
+                <a href="#videos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary transition">Videos</a>
+                <a href="#trending" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary transition">Trending</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-primary transition">Sobre Ian</a>
+                <div class="pt-4 border-t border-gray-200">
+                    <button class="w-full neo-btn px-4 py-2 rounded-lg text-base font-medium text-primary mb-2">Iniciar sesión</button>
+                    <button class="w-full px-4 py-2 rounded-lg text-base font-medium text-white bg-gradient-to-r from-primary to-accent shadow-lg">Registrarse</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barra de búsqueda -->
+        <div id="search-bar" class="hidden max-w-7xl mx-auto px-4 py-3">
+            <div class="relative">
+                <input type="text" placeholder="Buscar videos, canales..." class="w-full neo-input px-4 py-3 pl-10 rounded-xl focus:outline-none">
+                <button class="absolute left-3 top-3 text-gray-500">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section class="pt-24 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-10 md:mb-0 slide-in-left">
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+                    Descubre contenido <span class="gradient-text">futurista</span> en IAN
+                </h1>
+                <p class="text-lg text-gray-600 mb-8 max-w-lg">
+                    La plataforma de video más innovadora con diseño neomórfico y experiencia de usuario revolucionaria.
+                </p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4">
+                    <button class="px-6 py-3 rounded-xl text-white bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition flex items-center justify-center">
+                        <i class="fas fa-play mr-2"></i> Ver demostración
+                    </button>
+                    <button class="neo-btn px-6 py-3 rounded-xl text-primary font-medium flex items-center justify-center">
+                        <i class="fas fa-user-plus mr-2"></i> Registrarse gratis
+                    </button>
+                </div>
+            </div>
+            <div class="md:w-1/2 flex justify-center pulse">
+                <div class="neo-card w-full max-w-md p-6">
+                    <div class="video-thumbnail relative h-64 rounded-xl overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2232&q=80" alt="Video demo" class="w-full h-full object-cover">
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-white bg-opacity-80 flex items-center justify-center shadow-lg">
+                                <i class="fas fa-play text-primary text-2xl"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
+                            <div>
+                                <h3 class="font-medium">Tecnología del futuro</h3>
+                                <p class="text-sm text-gray-500">Ian Channel • 125K vistas</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button class="w-8 h-8 rounded-full flex items-center justify-center neo-btn">
+                                <i class="fas fa-thumbs-up text-gray-600"></i>
+                            </button>
+                            <button class="w-8 h-8 rounded-full flex items-center justify-center neo-btn">
+                                <i class="fas fa-thumbs-down text-gray-600"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de videos -->
+    <section id="videos" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto bg-white bg-opacity-50 rounded-3xl my-8 neo-card">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">Explora nuestros <span class="gradient-text">videos</span></h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Contenido cuidadosamente seleccionado para inspirarte y entretenerte</p>
+        </div>
+        
+        <!-- Filtros -->
+        <div class="flex flex-wrap justify-center gap-3 mb-8">
+            <button class="px-4 py-2 rounded-full neo-btn active">Todos</button>
+            <button class="px-4 py-2 rounded-full neo-btn">Tecnología</button>
+            <button class="px-4 py-2 rounded-full neo-btn">Diseño</button>
+            <button class="px-4 py-2 rounded-full neo-btn">Ciencia</button>
+            <button class="px-4 py-2 rounded-full neo-btn">Arte</button>
+            <button class="px-4 py-2 rounded-full neo-btn">Educación</button>
+        </div>
+        
+        <!-- Grid de videos -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Video 1 -->
+            <div class="neo-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="video-thumbnail relative">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tecnología avanzada" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                        12:34
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-1">El futuro de la inteligencia artificial</h3>
+                            <p class="text-sm text-gray-600">Tech Explorers</p>
+                            <p class="text-xs text-gray-500">245K vistas • 3 días atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 2 -->
+            <div class="neo-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="video-thumbnail relative">
+                    <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Diseño UI" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                        8:21
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-1">Diseño UI/UX en 2023: Tendencias</h3>
+                            <p class="text-sm text-gray-600">Design Masters</p>
+                            <p class="text-xs text-gray-500">189K vistas • 1 semana atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 3 -->
+            <div class="neo-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="video-thumbnail relative">
+                    <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D3D&auto=format&fit=crop&w=2070&q=80" alt="Ciencia" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                        15:42
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-1">Los misterios de la física cuántica</h3>
+                            <p class="text-sm text-gray-600">Science Today</p>
+                            <p class="text-xs text-gray-500">312K vistas • 2 semanas atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 4 -->
+            <div class="neo-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="video-thumbnail relative">
+                    <img src="https://images.unsplash.com/photo-1547036967-23d11aacaee0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2032&q=80" alt="Arte digital" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                        22:18
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-1">Creando arte con inteligencia artificial</h3>
+                            <p class="text-sm text-gray-600">Digital Art Lab</p>
+                            <p class="text-xs text-gray-500">178K vistas • 5 días atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 5 -->
+            <div class="neo-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="video-thumbnail relative">
+                    <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Educación" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                        10:05
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-1">Aprende Python en 10 minutos</h3>
+                            <p class="text-sm text-gray-600">Code Academy</p>
+                            <p class="text-xs text-gray-500">421K vistas • 1 mes atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Video 6 -->
+            <div class="neo-card rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
+                <div class="video-thumbnail relative">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Data Science" class="w-full h-48 object-cover">
+                    <div class="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white text-xs px-2 py-1 rounded">
+                        18:37
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-9 h-9 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div>
+                            <h3 class="font-medium mb-1">Data Science para principiantes</h3>
+                            <p class="text-sm text-gray-600">Data Insights</p>
+                            <p class="text-xs text-gray-500">156K vistas • 2 días atrás</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Paginación -->
+        <div class="flex justify-center mt-10">
+            <div class="flex space-x-2">
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn active">1</button>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn">2</button>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn">3</button>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn">8</button>
+                <button class="w-10 h-10 rounded-full flex items-center justify-center neo-btn pagination-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección Trending -->
+    <section id="trending" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-12 fade-in">
+            <h2 class="text-3xl font-bold mb-4">Trending <span class="gradient-text">ahora</span></h2>
+            <p class="text-gray-600 max-w-2xl mx-auto">Los videos más populares de la semana</p>
+        </div>
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <!-- Video principal trending -->
+            <div class="neo-card rounded-2xl overflow-hidden">
+                <div class="video-thumbnail relative h-80">
+                    <img src="https://images.unsplash.com/photo-1677442135136-760c813a743f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trending video" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 rounded-full bg-white bg-opacity-80 flex items-center justify-center shadow-lg">
+                            <i class="fas fa-play text-primary text-3xl"></i>
+                        </div>
+                    </div>
+                    <div class="absolute bottom-4 left-4">
+                        <span class="bg-primary text-white text-xs font-bold px-2 py-1 rounded">#1 TRENDING</span>
+                    </div>
+                </div>
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-2">Revolución de ChatGPT-4: Lo que necesitas saber</h3>
+                    <p class="text-gray-600 mb-4">Descubre cómo la última versión de ChatGPT está cambiando el mundo de la IA y qué significa para el futuro.</p>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
+                            <div>
+                                <p class="font-medium">AI Revolution</p>
+                                <p class="text-sm text-gray-500">1.2M vistas • 564K likes</p>
+                            </div>
+                        </div>
+                        <div class="flex space-x-3">
+                            <button class="neo-btn px-4 py-2 rounded-lg flex items-center">
+                                <i class="fas fa-thumbs-up mr-2"></i> 564K
+                            </button>
+                            <button class="neo-btn px-4 py-2 rounded-lg flex items-center">
+                                <i class="fas fa-share-alt mr-2"></i> Compartir
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Lista de trending videos -->
+            <div>
+                <!-- Trending 2 -->
+                <div class="neo-card rounded-2xl p-4 mb-4 flex">
+                    <div class="flex-shrink-0 mr-4">
+                        <div class="video-thumbnail relative w-32 h-20 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trending 2" class="w-full h-full object-cover">
+                            <div class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                                8:45
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-start">
+                            <span class="bg-primary text-white text-xs font-bold px-1 py-0.5 rounded mr-2">#2</span>
+                            <h4 class="font-medium">El metaverso en 2023: Realidad o ficción</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Tech Vision</p>
+                        <p class="text-xs text-gray-500">876K vistas • 342K likes</p>
+                    </div>
+                </div>
+                
+                <!-- Trending 3 -->
+                <div class="neo-card rounded-2xl p-4 mb-4 flex">
+                    <div class="flex-shrink-0 mr-4">
+                        <div class="video-thumbnail relative w-32 h-20 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1677442135135-7d5d45e9b308?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trending 3" class="w-full h-full object-cover">
+                            <div class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                                14:22
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-start">
+                            <span class="bg-primary text-white text-xs font-bold px-1 py-0.5 rounded mr-2">#3</span>
+                            <h4 class="font-medium">Blockchain más allá de las criptomonedas</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Crypto Insights</p>
+                        <p class="text-xs text-gray-500">754K vistas • 298K likes</p>
+                    </div>
+                </div>
+                
+                <!-- Trending 4 -->
+                <div class="neo-card rounded-2xl p-4 mb-4 flex">
+                    <div class="flex-shrink-0 mr-4">
+                        <div class="video-thumbnail relative w-32 h-20 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1677442135139-33c8a0a499c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trending 4" class="w-full h-full object-cover">
+                            <div class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                                21:05
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-start">
+                            <span class="bg-primary text-white text-xs font-bold px-1 py-0.5 rounded mr-2">#4</span>
+                            <h4 class="font-medium">Realidad aumentada en la medicina moderna</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">MedTech</p>
+                        <p class="text-xs text-gray-500">632K vistas • 245K likes</p>
+                    </div>
+                </div>
+                
+                <!-- Trending 5 -->
+                <div class="neo-card rounded-2xl p-4 flex">
+                    <div class="flex-shrink-0 mr-4">
+                        <div class="video-thumbnail relative w-32 h-20 rounded-lg overflow-hidden">
+                            <img src="https://images.unsplash.com/photo-1677442135137-2a6c0f0e0f0f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Trending 5" class="w-full h-full object-cover">
+                            <div class="absolute bottom-1 right-1 bg-black bg-opacity-70 text-white text-xs px-1 rounded">
+                                9:18
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="flex items-start">
+                            <span class="bg-primary text-white text-xs font-bold px-1 py-0.5 rounded mr-2">#5</span>
+                            <h4 class="font-medium">El futuro de los vehículos autónomos</h4>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-1">Auto Future</p>
+                        <p class="text-xs text-gray-500">587K vistas • 221K likes</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de reproductor de video -->
+    <section id="video-player" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto hidden">
+        <div class="neo-card rounded-2xl overflow-hidden">
+            <!-- Reproductor -->
+            <div class="bg-black h-96 flex items-center justify-center relative">
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-24 h-24 rounded-full bg-white bg-opacity-20 flex items-center justify-center backdrop-filter backdrop-blur-sm">
+                        <i class="fas fa-play text-white text-4xl"></i>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <button class="w-10 h-10 rounded-full bg-white bg-opacity-20 flex items-center justify-center text-white">
+                                <i class="fas fa-play"></i>
+                            </button>
+                            <div class="w-full bg-gray-600 bg-opacity-50 rounded-full h-1.5">
+                                <div class="bg-primary h-1.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                            <span class="text-white text-sm">12:34 / 27:45</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <button class="text-white">
+                                <i class="fas fa-volume-up"></i>
+                            </button>
+                            <button class="text-white">
+                                <i class="fas fa-expand"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Información del video -->
+            <div class="p-6">
+                <h2 class="text-2xl font-bold mb-2">Revolución de ChatGPT-4: Lo que necesitas saber</h2>
+                <div class="flex flex-wrap items-center justify-between mb-6">
+                    <div class="flex items-center space-x-4 mb-3 sm:mb-0">
+                        <div class="flex items-center">
+                            <div class="w-10 h-10 rounded-full bg-gray-300 mr-3"></div>
+                            <div>
+                                <p class="font-medium">AI Revolution</p>
+                                <p class="text-sm text-gray-500">1.2M suscriptores</p>
+                            </div>
+                        </div>
+                        <button class="px-4 py-2 rounded-lg text-white bg-primary hover:bg-secondary transition">Suscribirse</button>
+                    </div>
+                    <div class="flex space-x-3">
+                        <button class="neo-btn px-4 py-2 rounded-lg flex items-center">
+                            <i class="fas fa-thumbs-up mr-2"></i> 564K
+                        </button>
+                        <button class="neo-btn px-4 py-2 rounded-lg flex items-center">
+                            <i class="fas fa-thumbs-down mr-2"></i> 2K
+                        </button>
+                        <button class="neo-btn px-4 py-2 rounded-lg flex items-center">
+                            <i class="fas fa-share-alt mr-2"></i> Compartir
+                        </button>
+                        <button class="neo-btn px-4 py-2 rounded-lg flex items-center">
+                            <i class="fas fa-ellipsis-h"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Descripción -->
+                <div class="neo-card rounded-xl p-4 mb-6">
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <span class="mr-4">1.2M vistas</span>
+                        <span>Publicado hace 3 días</span>
+                    </div>
+                    <p class="text-gray-700 mb-4">
+                        En este video exploramos a fondo las capacidades de ChatGPT-4 y cómo está revolucionando diversos sectores. Desde la creación de contenido hasta la programación asistida, analizamos casos de uso reales y lo que esto significa para el futuro del trabajo y la creatividad.
+                    </p>
+                    <button class="text-primary font-medium flex items-center">
+                        Mostrar más <i class="fas fa-chevron-down ml-1"></i>
+                    </button>
+                </div>
+                
+                <!-- Comentarios -->
+                <div>
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 class="text-xl font-bold flex items-center">
+                            <span>1,245 comentarios</span>
+                            <span class="ml-3 text-sm font-normal text-gray-500 flex items-center">
+                                <i class="fas fa-sort-amount-down mr-1"></i> Ordenar por
+                            </span>
+                        </h3>
+                        <button class="flex items-center text-gray-600 hover:text-primary">
+                            <i class="fas fa-sync-alt mr-2"></i> Actualizar
+                        </button>
+                    </div>
+                    
+                    <!-- Formulario de comentario -->
+                    <div class="flex mb-8">
+                        <div class="flex-shrink-0 mr-3">
+                            <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+                        </div>
+                        <div class="flex-grow">
+                            <input type="text" placeholder="Añade un comentario público..." class="w-full neo-input px-4 py-3 rounded-xl mb-2">
+                            <div class="flex justify-end space-x-3">
+                                <button class="px-4 py-2 text-gray-600">Cancelar</button>
+                                <button class="px-4 py-2 rounded-lg text-white bg-primary bg-opacity-70">Comentar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Lista de comentarios -->
+                    <div class="space-y-6">
+                        <!-- Comentario 1 -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="neo-card rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div>
+                                            <span class="font-medium">Juan Pérez</span>
+                                            <span class="text-sm text-gray-500 ml-2">hace 2 días</span>
+                                        </div>
+                                        <button class="text-gray-500 hover:text-primary">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-gray-700 mb-3">
+                                        ¡Increíble análisis! Me ha sorprendido especialmente la capacidad de generar código funcional. ¿Crees que esto podría reemplazar a los programadores junior en el futuro cercano?
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="flex items-center text-gray-600">
+                                            <i class="fas fa-thumbs-up mr-2"></i> 245
+                                        </button>
+                                        <button class="flex items-center text-gray-600">
+                                            <i class="fas fa-thumbs-down mr-2"></i> 3
+                                        </button>
+                                        <button class="text-gray-600">
+                                            Responder
+                                        </button>
+                                    </div>
+                                </div>
+                                
+                                <!-- Respuestas -->
+                                <div class="mt-4 pl-4 border-l-2 border-gray-200 space-y-4">
+                                    <!-- Respuesta 1 -->
+                                    <div class="flex">
+                                        <div class="flex-shrink-0 mr-3">
+                                            <div class="w-8 h-8 rounded-full bg-gray-300"></div>
+                                        </div>
+                                        <div class="flex-grow">
+                                            <div class="neo-card rounded-xl p-3">
+                                                <div class="flex items-center justify-between mb-1">
+                                                    <div>
+                                                        <span class="font-medium">AI Revolution</span>
+                                                        <span class="text-xs text-gray-500 ml-2">hace 1 día</span>
+                                                    </div>
+                                                </div>
+                                                <p class="text-gray-700 text-sm mb-2">
+                                                    ¡Gracias por tu comentario Juan! Más que reemplazar, creemos que será una herramienta de asistencia muy poderosa que permitirá a los programadores junior aprender más rápido y ser más productivos desde el inicio.
+                                                </p>
+                                                <div class="flex items-center space-x-3">
+                                                    <button class="flex items-center text-gray-600 text-xs">
+                                                        <i class="fas fa-thumbs-up mr-1"></i> 124
+                                                    </button>
+                                                    <button class="flex items-center text-gray-600 text-xs">
+                                                        <i class="fas fa-thumbs-down mr-1"></i> 0
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Comentario 2 -->
+                        <div class="flex">
+                            <div class="flex-shrink-0 mr-3">
+                                <div class="w-10 h-10 rounded-full bg-gray-300"></div>
+                            </div>
+                            <div class="flex-grow">
+                                <div class="neo-card rounded-xl p-4">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div>
+                                            <span class="font-medium">María González</span>
+                                            <span class="text-sm text-gray-500 ml-2">hace 1 día</span>
+                                        </div>
+                                        <button class="text-gray-500 hover:text-primary">
+                                            <i class="fas fa-ellipsis-h"></i>
+                                        </button>
+                                    </div>
+                                    <p class="text-gray-700 mb-3">
+                                        Excelente video, muy completo. Me gustaría saber tu opinión sobre las implicaciones éticas de estas tecnologías, especialmente en cuanto a la generación de noticias falsas o contenido engañoso.
+                                    </p>
+                                    <div class="flex items-center space-x-4">
+                                        <button class="flex items-center text-gray-600">
+                                            <i class="fas fa-thumbs-up mr-2"></i> 187
+                                        </button>
+                                        <button class="flex items-center text-gray-600">
+                                            <i class="fas fa-thumbs-down mr-2"></i> 2
+                                        </button>
+                                        <button class="text-gray-600">
+                                            Responder
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Ver más comentarios -->
+                    <div class="text-center mt-6">
+                        <button class="neo-btn px-6 py-3 rounded-xl text-primary font-medium flex items-center justify-center mx-auto">
+                            <i class="fas fa-comment-dots mr-2"></i> Ver más comentarios
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección About -->
+    <section id="about" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="neo-card rounded-3xl overflow-hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <!-- Imagen -->
+                <div class="h-full min-h-96 bg-gradient-to-br from-primary to-accent flex items-center justify-center p-8">
+                    <div class="relative w-full h-full flex items-center justify-center">
+                        <div class="absolute w-64 h-64 rounded-full bg-white bg-opacity-10"></div>
+                        <div class="absolute w-48 h-48 rounded-full bg-white bg-opacity-10" style="top: 20%; right: 20%;"></div>
+                        <div class="relative z-10 text-center">
+                            <div class="w-32 h-32 rounded-full bg-white bg-opacity-20 flex items-center justify-center mx-auto mb-6 backdrop-filter backdrop-blur-sm">
+                                <span class="text-5xl font-bold gradient-text">IAN</span>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white mb-2">El futuro del contenido</h3>
+                            <p class="text-white text-opacity-80">Plataforma de video innovadora</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Texto -->
+                <div class="p-8 md:p-12">
+                    <h2 class="text-3xl font-bold mb-6">Sobre <span class="gradient-text">Ian</span></h2>
+                    <p class="text-gray-700 mb-6">
+                        Ian es una plataforma de video revolucionaria que combina tecnología de vanguardia con un diseño futurista y minimalista. Nuestro objetivo es redefinir la experiencia de consumo de contenido digital.
+                    </p>
+                    <p class="text-gray-700 mb-8">
+                        Con un enfoque en la innovación, ofrecemos herramientas interactivas, recomendaciones inteligentes y una interfaz de usuario que prioriza la simplicidad y la elegancia. El diseño neomórfico crea una experiencia visual única que mejora la interacción con el contenido.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="neo-card rounded-xl p-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary bg-opacity-10 flex items-center justify-center text-primary mb-3">
+                                <i class="fas fa-bolt text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Rendimiento</h4>
+                            <p class="text-sm text-gray-600">Streaming ultrarrápido en 4K</p>
+                        </div>
+                        <div class="neo-card rounded-xl p-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary bg-opacity-10 flex items-center justify-center text-primary mb-3">
+                                <i class="fas fa-lightbulb text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Innovación</h4>
+                            <p class="text-sm text-gray-600">Tecnología de vanguardia</p>
+                        </div>
+                        <div class="neo-card rounded-xl p-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary bg-opacity-10 flex items-center justify-center text-primary mb-3">
+                                <i class="fas fa-palette text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Diseño</h4>
+                            <p class="text-sm text-gray-600">Interfaz futurista</p>
+                        </div>
+                        <div class="neo-card rounded-xl p-4">
+                            <div class="w-12 h-12 rounded-xl bg-primary bg-opacity-10 flex items-center justify-center text-primary mb-3">
+                                <i class="fas fa-shield-alt text-xl"></i>
+                            </div>
+                            <h4 class="font-bold mb-1">Seguridad</h4>
+                            <p class="text-sm text-gray-600">Protección de datos</p>
+                        </div>
+                    </div>
+                    
+                    <button class="px-6 py-3 rounded-xl text-white bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition flex items-center">
+                        <i class="fas fa-rocket mr-2"></i> Únete a la revolución
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Modales -->
+    <!-- Modal de inicio de sesión -->
+    <div id="login-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black bg-opacity-50">
+        <div class="neo-card rounded-2xl w-full max-w-md transform transition-all fade-in">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Iniciar sesión</h3>
+                    <button id="close-login-modal" class="neo-btn p-2 rounded-full text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form>
+                    <div class="mb-4">
+                        <label for="login-email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                        <input type="email" id="login-email" class="w-full neo-input px-4 py-3 rounded-xl" placeholder="tu@email.com">
+                    </div>
+                    <div class="mb-6">
+                        <label for="login-password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                        <input type="password" id="login-password" class="w-full neo-input px-4 py-3 rounded-xl" placeholder="••••••••">
+                    </div>
+                    <button type="submit" class="w-full px-6 py-3 rounded-xl text-white bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition mb-4">
+                        Iniciar sesión
+                    </button>
+                    <div class="text-center text-sm text-gray-600">
+                        ¿No tienes cuenta? <button id="switch-to-register" class="text-primary font-medium">Regístrate</button>
+                    </div>
+                </form>
+                
+                <div class="relative my-6">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-300"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-white text-gray-500">O inicia sesión con</span>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-3">
+                    <button class="neo-btn px-4 py-3 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-google text-red-500 mr-2"></i> Google
+                    </button>
+                    <button class="neo-btn px-4 py-3 rounded-lg flex items-center justify-center">
+                        <i class="fab fa-apple text-gray-800 mr-2"></i> Apple
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal de registro -->
+    <div id="register-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4 bg-black bg-opacity-50">
+        <div class="neo-card rounded-2xl w-full max-w-md transform transition-all fade-in">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold">Crear cuenta</h3>
+                    <button id="close-register-modal" class="neo-btn p-2 rounded-full text-gray-600">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                
+                <form>
+                    <div class="mb-4">
+                        <label for="register-name" class="block text-sm font-medium text-gray-700 mb-1">Nombre completo</label>
+                        <input type="text" id="register-name" class="w-full neo-input px-4 py-3 rounded-xl" placeholder="Tu nombre">
+                    </div>
+                    <div class="mb-4">
+                        <label for="register-email" class="block text-sm font-medium text-gray-700 mb-1">Correo electrónico</label>
+                        <input type="email" id="register-email" class="w-full neo-input px-4 py-3 rounded-xl" placeholder="tu@email.com">
+                    </div>
+                    <div class="mb-4">
+                        <label for="register-password" class="block text-sm font-medium text-gray-700 mb-1">Contraseña</label>
+                        <input type="password" id="register-password" class="w-full neo-input px-4 py-3 rounded-xl" placeholder="••••••••">
+                    </div>
+                    <div class="mb-6">
+                        <label for="register-confirm-password" class="block text-sm font-medium text-gray-700 mb-1">Confirmar contraseña</label>
+                        <input type="password" id="register-confirm-password" class="w-full neo-input px-4 py-3 rounded-xl" placeholder="••••••••">
+                    </div>
+                    <div class="flex items-center mb-6">
+                        <input type="checkbox" id="register-terms" class="rounded neo-input w-5 h-5">
+                        <label for="register-terms" class="ml-2 block text-sm text-gray-700">
+                            Acepto los <a href="#" class="text-primary">Términos de servicio</a> y <a href="#" class="text-primary">Política de privacidad</a>
+                        </label>
+                    </div>
+                    <button type="submit" class="w-full px-6 py-3 rounded-xl text-white bg-gradient-to-r from-primary to-accent shadow-lg hover:shadow-xl transition mb-4">
+                        Registrarse
+                    </button>
+                    <div class="text-center text-sm text-gray-600">
+                        ¿Ya tienes cuenta? <button id="switch-to-login" class="text-primary font-medium">Inicia sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-12 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Ian</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Sobre nosotros</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Carreras</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Contacto</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Legal</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Términos de servicio</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Política de privacidad</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Directiva de cookies</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Propiedad intelectual</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Recursos</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Centro de ayuda</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Guías</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">API</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Estado del servicio</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-bold mb-4">Síguenos</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-primary transition">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-primary transition">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-primary transition">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center text-white hover:bg-primary transition">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Suscríbete a nuestro newsletter para recibir las últimas actualizaciones.
+                    </p>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2023 Ian. Todos los derechos reservados.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Configuración</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Privacidad</a>
+                    <a href="#" class="text-gray-400 hover:text-white transition text-sm">Términos</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Funcionalidad básica de la interfaz
+        document.addEventListener('DOMContentLoaded', function() {
+            // Menú móvil
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Barra de búsqueda
+            const searchBtn = document.getElementById('search-btn');
+            const searchBar = document.getElementById('search-bar');
+            
+            searchBtn.addEventListener('click', function() {
+                searchBar.classList.toggle('hidden');
+            });
+            
+            // Modales
+            const loginBtn = document.getElementById('login-btn');
+            const registerBtn = document.getElementById('register-btn');
+            const loginModal = document.getElementById('login-modal');
+            const registerModal = document.getElementById('register-modal');
+            const closeLoginModal = document.getElementById('close-login-modal');
+            const closeRegisterModal = document.getElementById('close-register-modal');
+            const switchToRegister = document.getElementById('switch-to-register');
+            const switchToLogin = document.getElementById('switch-to-login');
+            
+            loginBtn.addEventListener('click', function() {
+                loginModal.classList.remove('hidden');
+            });
+            
+            registerBtn.addEventListener('click', function() {
+                registerModal.classList.remove('hidden');
+            });
+            
+            closeLoginModal.addEventListener('click', function() {
+                loginModal.classList.add('hidden');
+            });
+            
+            closeRegisterModal.addEventListener('click', function() {
+                registerModal.classList.add('hidden');
+            });
+            
+            switchToRegister.addEventListener('click', function() {
+                loginModal.classList.add('hidden');
+                registerModal.classList.remove('hidden');
+            });
+            
+            switchToLogin.addEventListener('click', function() {
+                registerModal.classList.add('hidden');
+                loginModal.classList.remove('hidden');
+            });
+            
+            // Cerrar modales al hacer clic fuera
+            window.addEventListener('click', function(event) {
+                if (event.target === loginModal) {
+                    loginModal.classList.add('hidden');
+                }
+                if (event.target === registerModal) {
+                    registerModal.classList.add('hidden');
+                }
+            });
+            
+            // Simular base de datos para comentarios
+            const commentForm = document.querySelector('#video-player form');
+            if (commentForm) {
+                commentForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Aquí iría la lógica para guardar el comentario en la base de datos
+                    alert('Comentario enviado (simulación)');
+                    this.reset();
+                });
+            }
+            
+            // Simular inicio de sesión/registro
+            const loginForm = document.querySelector('#login-modal form');
+            const registerForm = document.querySelector('#register-modal form');
+            
+            if (loginForm) {
+                loginForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Aquí iría la lógica para autenticar al usuario
+                    alert('Inicio de sesión exitoso (simulación)');
+                    loginModal.classList.add('hidden');
+                    this.reset();
+                });
+            }
+            
+            if (registerForm) {
+                registerForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    // Aquí iría la lógica para registrar al usuario
+                    alert('Registro exitoso (simulación)');
+                    registerModal.classList.add('hidden');
+                    this.reset();
+                });
+            }
+            
+            // Mostrar reproductor de video al hacer clic en un video
+            const videoCards = document.querySelectorAll('.video-thumbnail');
+            const videoPlayerSection = document.getElementById('video-player');
+            
+            videoCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    if (videoPlayerSection) {
+                        videoPlayerSection.classList.remove('hidden');
+                        window.scrollTo({
+                            top: videoPlayerSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Paginación
+            const paginationBtns = document.querySelectorAll('.pagination-btn');
+            paginationBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    paginationBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    // Aquí iría la lógica para cargar la página correspondiente
+                });
+            });
+        });
+    </script>
+</body>
+</html>
